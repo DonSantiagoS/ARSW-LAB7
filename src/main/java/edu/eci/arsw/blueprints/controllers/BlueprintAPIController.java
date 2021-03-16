@@ -85,15 +85,14 @@ public class BlueprintAPIController {
 
     }
 
-    @RequestMapping(path = "/{author}/{name}",method = RequestMethod.PUT)
-    public ResponseEntity<?> PutBlueprint(@PathVariable ("author") String author, @PathVariable ("name") String name, @RequestBody Blueprint newBp ){
-
+    @RequestMapping(path = "/{author}/{name}",method = RequestMethod.DELETE)
+    public ResponseEntity<?> DeleteBlueprintByAuthor(@PathVariable ("author") String author, @PathVariable ("name") String name){
         try {
-            bps.modifyOrAddBlueprint(newBp, author, name);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (BlueprintPersistenceException ex) {
+            bps.deleteBlueprintByAuthor(author, name);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (BlueprintNotFoundException ex) {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
 }
