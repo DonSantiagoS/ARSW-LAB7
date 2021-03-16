@@ -18,7 +18,6 @@ var Module = (function () {
     function _graficar(blueprints) {
         currentBlueprint=blueprints;
         open=true;
-
         $("#canvasTitle").text("Current blueprint: " + blueprints.name);
         redraw(blueprints);
     }
